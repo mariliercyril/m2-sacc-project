@@ -15,17 +15,18 @@ import java.util.Properties;
 
 @WebServlet(name = "MailWorker", value = "/mailworker")
 public class MailWorker extends HttpServlet {
-    public void sendSimpleMail(String recipientMail) {
+    public void sendSimpleMail(String senderMail, String recipientMail, String subject, String message) {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
         try {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("benazetlaurent@gmail.com", "Sender"));
+            msg.setFrom(new InternetAddress(senderMail, "Sender"));
             msg.addRecipient(Message.RecipientType.TO,
                     new InternetAddress(recipientMail, "User"));
-            msg.setSubject("Test email from gcloud push queue");
-            msg.setText("This is a test");
+
+            msg.setSubject(subject);
+            msg.setText(message);
             Transport.send(msg);
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -34,9 +35,17 @@ public class MailWorker extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        String senderMail = req.getParameter("senderMail");
         String recipientMail = req.getParameter("recipientMail");
-        sendSimpleMail(recipientMail);
-        System.out.println(recipientMail);
+        String subject = req.getParameter("subject");
+        String message = req.getParameter("message");
+
+        sendSimpleMail(senderMail, recipientMail, subject, message);
+
+        System.out.println("Sender mail : " + senderMail);
+        System.out.println("Recipient mail : " + recipientMail);
+        System.out.println("Subject : " + subject);
+        System.out.println("Message : " + message);
     }
 
 }
