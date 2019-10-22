@@ -33,10 +33,10 @@ public class AdministrationWorker extends HttpServlet {
 
 		String information = (pUrl == null) ? getAllContent(mail) : getDetails(mail, pUrl);
 
-		response.getWriter().println(information);
-
 		System.out.println("Mail : " + mail);
 		System.out.println("PUrl : " + pUrl);
+
+		System.out.println("Information :\n" + information);
     }
 
 	private String getAllContent(String mail) {
