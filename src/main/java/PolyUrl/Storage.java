@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Storage {
     private static List<User> accounts = new ArrayList<>();
-    private static List<Ptitu> ptitu = new ArrayList<>();
+    private static List<Ptitu> ptituList = new ArrayList<>();
 
     public static List<Ptitu> getPtitu() {
-        return ptitu;
+        return ptituList;
     }
 
     public static void setPtitu(List<Ptitu> ptitu) {
-        Storage.ptitu = ptitu;
+        Storage.ptituList = ptitu;
     }
 
     public static List<User> getAccounts() {
@@ -32,6 +32,15 @@ public class Storage {
         }
     }
 
+    public static boolean addPtitu(Ptitu ptitu) {
+        if (!ptituList.contains(ptitu)) {
+            ptituList.add(ptitu);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void printAccounts() {
         for (User user : accounts) {
             System.out.println(user.getMail());
@@ -41,6 +50,6 @@ public class Storage {
 
     public static void clean() {
         accounts = new ArrayList<>();
-        ptitu = new ArrayList<>();
+        ptituList = new ArrayList<>();
     }
 }

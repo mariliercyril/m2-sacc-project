@@ -3,13 +3,14 @@ package PolyUrl;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SeePUrl", value = "/seepurl")
+@WebServlet(name = "SeePUrl", value = "/")
 public class SeePUrl extends HttpServlet {
 
     Gson gson = new Gson();
@@ -20,7 +21,9 @@ public class SeePUrl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         //code
-        response.getWriter().println("no response here, should redirect to the long url/image");
+        int id = CreatePUrl.shortURLtoID(request.getParameter("u"));
+        String url = Storage.getPtitu().get(id).getLongUrl();
+        response.sendRedirect(url);
     }
 }
 
