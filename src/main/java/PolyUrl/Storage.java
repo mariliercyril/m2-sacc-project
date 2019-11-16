@@ -58,10 +58,10 @@ public class Storage {
 
     public static boolean addPtitu(Ptitu ptitu) {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-        KeyFactory keyFactory = datastore.newKeyFactory().setKind("Ptitu");
+        KeyFactory keyFactory = datastore.newKeyFactory().setKind("PtitUStorage");
 
         Query<Entity> query = Query.newEntityQueryBuilder()
-                .setKind("Ptitu")
+                .setKind("PtitUStorage")
                 .setFilter(StructuredQuery.PropertyFilter.eq("longUrl", ptitu.getLongUrl()))
                 .build();
 
@@ -90,9 +90,9 @@ public class Storage {
 
     }
 
-    public static String getLongUrlFromPtitU(int id){
-
-        return "wesh";
+    public static String getLongUrlFromPtitU(String ptitu){
+        
+        return "long url correspondante";
     }
 
     public static void printAccounts() {
