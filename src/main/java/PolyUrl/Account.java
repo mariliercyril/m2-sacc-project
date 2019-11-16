@@ -29,28 +29,18 @@ public class Account extends HttpServlet {
 
     //create a new account
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+
         String name = request.getParameter("name");
         String mail = request.getParameter("mail");
         String admin = request.getParameter("admin");
-        Role role = Boolean.parseBoolean(admin) ? Role.ADMIN : Role.USER;
-
-        String subject = "PolyUrl Account creation";
-        String message = "Welcome " + name + ", your account for PolyUrl has been created.";
 
 
-        if (Storage.addAccount(new User(mail, role))) {
-            Queue queue = QueueFactory.getQueue("queue-mail");
-            queue.add(TaskOptions.Builder.withUrl("/mailworker")
-                    .param("senderMail", "mail@polyurl.appspotmail.com")
-                    .param("recipientMail", mail)
-                    .param("subject", subject)
-                    .param("message", message));
-
-            response.getWriter().println("Created new account");
-        } else {
-            response.getWriter().println("Can't create account, email is already taken");
-        }
+        Queue queue = QueueFactory.getQueue("queue-account");
+        queue.add(TaskOptions.Builder.withUrl("/accountworker")
+                .param("name", name)
+                .param("mail", mail)
+                .param("admin", admin));
     }
 
 

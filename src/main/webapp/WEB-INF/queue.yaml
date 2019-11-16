@@ -2,5 +2,9 @@ queue:
   - name: queue-mail
     rate: 5/s
 
+  - name: queue-account
+    rate: 1/s
+
   - name: queue-administration
     rate: 1/s
+
