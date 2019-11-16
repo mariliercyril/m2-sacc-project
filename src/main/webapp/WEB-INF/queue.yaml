@@ -3,8 +3,10 @@ queue:
     rate: 5/s
 
   - name: queue-account
-    rate: 1/s
+    rate: 5/s
 
-  - name: queue-administration
-    rate: 1/s
+  - name: queue-list-logs
+    rate: 5/s
 
+  - name: queue-logs-details
+    rate: 5/s
