@@ -37,7 +37,7 @@ public class SeeDetails extends HttpServlet {
 				.filter((a) -> (a.getMail()).equals(mail))
 				.findFirst();
 
-		if (optionalUser.isPresent()) {
+		/*if (optionalUser.isPresent()) {
 			Optional<Ptitu> optionalPtitu = (Storage.getPtitu()).stream()
 					.filter((p) -> (p.getUrl()).equals(pUrl))
 					.findFirst();
@@ -51,7 +51,7 @@ public class SeeDetails extends HttpServlet {
 			}
 		} else {
 			response.getWriter().println("No registered user (or administrator) with this mail...");
-		}
+		}*/
 	}
 
 }

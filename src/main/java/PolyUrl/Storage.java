@@ -8,15 +8,11 @@ import java.util.List;
 
 public class Storage {
     private static List<User> accounts = new ArrayList<>();
-    private static List<Ptitu> ptituList = new ArrayList<>();
+    private static int ptitUSize = 0;
 
 
-    public static List<Ptitu> getPtitu() {
-        return ptituList;
-    }
-
-    public static void setPtitu(List<Ptitu> ptitu) {
-        Storage.ptituList = ptitu;
+    public static int getPtituSize() {
+        return ptitUSize;
     }
 
     public static List<User> getAccounts() {
@@ -74,6 +70,8 @@ public class Storage {
 
        if(ptitus != null) {
 
+           ptitUSize++;
+
            boolean contentType = ContentType.IMAGE.equals(ptitu.getContentType()) ;
            Key key = datastore.allocateId(keyFactory.newKey());
            Entity pt = Entity.newBuilder(key)
@@ -90,8 +88,11 @@ public class Storage {
 
            return false ;
 
+    }
 
+    public static String getLongUrlFromPtitU(int id){
 
+        return "wesh";
     }
 
     public static void printAccounts() {
@@ -103,6 +104,6 @@ public class Storage {
 
     public static void clean() {
         accounts = new ArrayList<>();
-        ptituList = new ArrayList<>();
+        ptitUSize = 0;
     }
 }

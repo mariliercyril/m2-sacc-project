@@ -43,7 +43,7 @@ public class AdministrationWorker extends HttpServlet {
 
 		String content = new String();
 
-		Optional<User> optionalUser = (Storage.getAccounts()).stream()
+		/*Optional<User> optionalUser = (Storage.getAccounts()).stream()
 				.filter((a) -> (a.getMail()).equals(mail))
 				.findFirst();
 
@@ -56,7 +56,7 @@ public class AdministrationWorker extends HttpServlet {
 			case ADMIN:
 				content = gson.toJson((Storage.getPtitu()));
 		}
-		content = "The all content list returned.";
+		content = "The all content list returned.";*/
 
 		return content;
 	}
@@ -65,7 +65,7 @@ public class AdministrationWorker extends HttpServlet {
 
 		String details = new String();
 
-		Optional<User> optionalUser = (Storage.getAccounts()).stream()
+		/*Optional<User> optionalUser = (Storage.getAccounts()).stream()
 				.filter((a) -> (a.getMail()).equals(mail))
 				.findFirst();
 
@@ -84,7 +84,7 @@ public class AdministrationWorker extends HttpServlet {
 				}
 			case ADMIN:
 				details = gson.toJson(ptitu);
-		}
+		}*/
 
 		return details;
     }
