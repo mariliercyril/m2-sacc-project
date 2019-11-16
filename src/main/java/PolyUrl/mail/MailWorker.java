@@ -1,4 +1,4 @@
-package PolyUrl;
+package PolyUrl.mail;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;

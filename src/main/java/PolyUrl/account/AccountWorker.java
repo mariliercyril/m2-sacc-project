@@ -1,10 +1,12 @@
-package PolyUrl;
+package PolyUrl.account;
 
+import PolyUrl.Role;
+import PolyUrl.Storage;
+import PolyUrl.User;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,6 @@ import java.io.IOException;
 
 @WebServlet(name = "AccountWorker", value = "/accountworker")
 public class AccountWorker extends HttpServlet {
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -25,7 +26,7 @@ public class AccountWorker extends HttpServlet {
         String subject = "PolyUrl Account creation";
         String message = "Welcome " + name + ", your account for PolyUrl has been created.";
 
-        System.out.println("name :"+name+" mail: "+mail+"admin: "+admin);
+        System.out.println("name :" + name + " mail: " + mail + "admin: " + admin);
 
         if (Storage.addAccount(new User(mail, role))) {
             Queue queue = QueueFactory.getQueue("queue-mail");
