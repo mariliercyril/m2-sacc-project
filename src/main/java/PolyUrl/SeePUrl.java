@@ -22,9 +22,9 @@ public class SeePUrl extends HttpServlet {
             throws IOException {
         //code
         //int id = CreatePUrl.shortURLtoID(request.getParameter("u"));
-        String url = Storage.getLongUrlFromPtitU(request.getParameter("u"));
-        response.getWriter().println(url);
-        //response.sendRedirect(url);
+        String[] r = Storage.getLongUrlFromPtitU(request.getParameter("u"));
+        //0=url    1=isImage(String)  2=ownerMail
+        response.sendRedirect(r[0]);
     }
 }
 

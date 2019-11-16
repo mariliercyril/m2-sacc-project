@@ -90,23 +90,27 @@ public class Storage {
 
     }
 
-    public static String getLongUrlFromPtitU(String ptitu) {
+    public static String[] getLongUrlFromPtitU(String ptitu) {
 
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("PtitUStorage");
 
         Query<ProjectionEntity> query = Query.newProjectionEntityQueryBuilder()
                 .setKind("PtitUStorage")
-                .setProjection("longUrl")
+                .setProjection("longUrl","isImage","ownerMail")
                 .setFilter(StructuredQuery.PropertyFilter.eq("url", ptitu))
                 .build();
 
         QueryResults<ProjectionEntity> ptituFind = datastore.run(query);
 
-        String longUrl="";
+        String[] longUrl={"","false",""};
         while (ptituFind.hasNext()) {
-
-            longUrl = ptituFind.next().getString("longUrl");
+            ProjectionEntity x = ptituFind.next();
+            longUrl[0] = x.getString("longUrl");
+            if(x.getBoolean("isImage")){
+                longUrl[1] = "true";
+            }
+            longUrl[2] = x.getString("ownerMail");
         }
 
         return longUrl ;

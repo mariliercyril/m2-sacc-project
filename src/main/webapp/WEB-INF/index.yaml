@@ -6,3 +6,7 @@ indexes:
         direction: asc
       - name: longUrl
         direction: desc
+      - name: isImage
+        direction: desc
+      - name: ownerMail
+        direction: desc

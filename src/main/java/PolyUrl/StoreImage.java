@@ -61,11 +61,14 @@ public class StoreImage extends HttpServlet {
 
         BlobInfo blobInfo = storage.create(BlobInfo
                         .newBuilder("poly_url_images", request.getPart("file").getSubmittedFileName())
-                        // Modify access list to allow all users with link to read file
-                        //.setAcl(new ArrayList<>(Arrays.asList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
                         .build(),
                 os.toByteArray());
-        response.getWriter().println(blobInfo.getMediaLink());
+
+        String purl = CreatePUrl.idToShortURL(PolyUrl.Storage.getPtituSize());
+        String longurl = request.getParameter(blobInfo.getMediaLink());
+        String mail = request.getParameter("mail");
+        PolyUrl.Storage.addPtitu(new Ptitu(purl,longurl,mail,ContentType.IMAGE));
+        response.getWriter().println("http://polyurl.appspot.com/?u="+purl);
     }
 }
 
