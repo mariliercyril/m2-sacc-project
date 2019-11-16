@@ -1,11 +1,15 @@
 package PolyUrl;
 
+import com.google.cloud.Timestamp;
+import com.google.cloud.datastore.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
     private static List<User> accounts = new ArrayList<>();
     private static List<Ptitu> ptituList = new ArrayList<>();
+
 
     public static List<Ptitu> getPtitu() {
         return ptituList;
@@ -23,22 +27,43 @@ public class Storage {
         Storage.accounts = accounts;
     }
 
+
+
     public static boolean addAccount(User user) {
-        if (!accounts.contains(user)) {
-            accounts.add(user);
-            return true;
-        } else {
-            return false;
-        }
+     //todo check if account exists
+         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Account");
+
+        boolean role = Role.ADMIN.equals(user.getRole()) ;
+        Key key = datastore.allocateId(keyFactory.newKey());
+        Entity account = Entity.newBuilder(key)
+                .set("mail", StringValue.newBuilder(user.getMail()).setExcludeFromIndexes(true).build())
+                .set("role", BooleanValue.newBuilder(role).setExcludeFromIndexes(true).build())
+                .set("created", Timestamp.now())
+                .build();
+        datastore.put(account);
+        return true ;
     }
 
     public static boolean addPtitu(Ptitu ptitu) {
-        if (!ptituList.contains(ptitu)) {
-            ptituList.add(ptitu);
-            return true;
-        } else {
-            return false;
-        }
+     //todo check if addPtitu exists
+
+        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        KeyFactory keyFactory = datastore.newKeyFactory().setKind("Ptitu");
+
+        boolean contentType = ContentType.IMAGE.equals(ptitu.getContentType()) ;
+        Key key = datastore.allocateId(keyFactory.newKey());
+        Entity account = Entity.newBuilder(key)
+                .set("url", StringValue.newBuilder(ptitu.getUrl()).setExcludeFromIndexes(true).build())
+                .set("longUrl", StringValue.newBuilder(ptitu.getLongUrl()).setExcludeFromIndexes(true).build())
+                .set("ownerMail", StringValue.newBuilder(ptitu.getOwnerMail()).setExcludeFromIndexes(true).build())
+                .set("numberAccesses", LongValue.newBuilder(ptitu.getNumberAccesses()).setExcludeFromIndexes(true).build())
+                .set("contentType", BooleanValue.newBuilder(contentType).setExcludeFromIndexes(true).build())
+                .set("created", Timestamp.now())
+                .build();
+        datastore.put(account);
+        return true ;
+
     }
 
     public static void printAccounts() {

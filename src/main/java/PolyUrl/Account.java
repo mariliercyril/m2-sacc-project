@@ -18,6 +18,7 @@ public class Account extends HttpServlet {
     Gson gson = new Gson();
 
 
+
     //return the account information (not sure if this one is useful)
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,6 +38,7 @@ public class Account extends HttpServlet {
         String subject = "PolyUrl Account creation";
         String message = "Welcome " + name + ", your account for PolyUrl has been created.";
 
+
         if (Storage.addAccount(new User(mail, role))) {
             Queue queue = QueueFactory.getQueue("queue-mail");
             queue.add(TaskOptions.Builder.withUrl("/mailworker")
@@ -50,5 +52,7 @@ public class Account extends HttpServlet {
             response.getWriter().println("Can't create account, email is already taken");
         }
     }
+
+
 }
 
