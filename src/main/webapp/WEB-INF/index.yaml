@@ -1,0 +1,8 @@
+indexes:
+
+  - kind: PtitUStorage
+    properties:
+      - name: url
+        direction: asc
+      - name: longUrl
+        direction: desc
