@@ -95,21 +95,21 @@ public class Storage {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("PtitUStorage");
 
-        Query<Entity> query = Query.newEntityQueryBuilder()
+        Query<ProjectionEntity> query = Query.newProjectionEntityQueryBuilder()
                 .setKind("PtitUStorage")
+                .setProjection("longUrl")
                 .setFilter(StructuredQuery.PropertyFilter.eq("url", ptitu))
                 .build();
 
-        QueryResults<Entity> ptituFind = datastore.run(query);
+        QueryResults<ProjectionEntity> ptituFind = datastore.run(query);
 
-        String longUrl = "";
+        String longUrl="";
         while (ptituFind.hasNext()) {
 
             longUrl = ptituFind.next().toString();
         }
 
         return longUrl ;
-
     }
 
     public static void printAccounts() {
