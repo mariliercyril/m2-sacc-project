@@ -38,7 +38,7 @@ public class Storage {
 
         QueryResults<Entity> accounts = datastore.run(query);
 
-        if(accounts !=null) {
+        if(!accounts.hasNext()) {
 
             boolean role = Role.ADMIN.equals(user.getRole()) ;
             Key key = datastore.allocateId(keyFactory.newKey());
@@ -65,10 +65,11 @@ public class Storage {
                 .setFilter(StructuredQuery.PropertyFilter.eq("longUrl", ptitu.getLongUrl()))
                 .build();
 
+
         QueryResults<Entity> ptitus = datastore.run(query);
 
 
-       if(ptitus != null) {
+       if(!ptitus.hasNext()) {
 
            ptitUSize++;
 
@@ -89,9 +90,26 @@ public class Storage {
 
     }
 
-    public static String getLongUrlFromPtitU(String ptitu){
+    public static String getLongUrlFromPtitU(String ptitu) {
 
-        return "long url correspondante";
+        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        KeyFactory keyFactory = datastore.newKeyFactory().setKind("PtitUStorage");
+
+        Query<Entity> query = Query.newEntityQueryBuilder()
+                .setKind("PtitUStorage")
+                .setFilter(StructuredQuery.PropertyFilter.eq("url", ptitu))
+                .build();
+
+        QueryResults<Entity> ptituFind = datastore.run(query);
+
+        String longUrl = "";
+        while (ptituFind.hasNext()) {
+
+            longUrl = ptituFind.next().toString();
+        }
+
+        return longUrl ;
+
     }
 
     public static void printAccounts() {
