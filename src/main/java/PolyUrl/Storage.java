@@ -78,8 +78,7 @@ public class Storage {
                    .set("url", ptitu.getUrl())
                    .set("longUrl", ptitu.getLongUrl())
                    .set("ownerMail", ptitu.getOwnerMail())
-                   .set("numberAccesses", ptitu.getNumberAccesses())
-                   .set("contentType", contentType)
+                   .set("isImage", contentType)
                    .set("created", Timestamp.now())
                    .build();
            datastore.put(pt);
@@ -91,7 +90,7 @@ public class Storage {
     }
 
     public static String getLongUrlFromPtitU(String ptitu){
-        
+
         return "long url correspondante";
     }
 
