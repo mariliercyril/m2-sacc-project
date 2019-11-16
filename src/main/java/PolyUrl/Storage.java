@@ -30,39 +30,67 @@ public class Storage {
 
 
     public static boolean addAccount(User user) {
-     //todo check if account exists
+
          Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
          KeyFactory keyFactory = datastore.newKeyFactory().setKind("Account");
 
-        boolean role = Role.ADMIN.equals(user.getRole()) ;
-        Key key = datastore.allocateId(keyFactory.newKey());
-        Entity account = Entity.newBuilder(key)
-                .set("mail", StringValue.newBuilder(user.getMail()).setExcludeFromIndexes(true).build())
-                .set("role", BooleanValue.newBuilder(role).setExcludeFromIndexes(true).build())
-                .set("created", Timestamp.now())
+        
+        Query<Entity> query = Query.newEntityQueryBuilder()
+                .setKind("Account")
+                .setFilter(StructuredQuery.PropertyFilter.eq("mail", user.getMail()))
                 .build();
-        datastore.put(account);
-        return true ;
+
+        QueryResults<Entity> accounts = datastore.run(query);
+
+        if(accounts !=null) {
+
+            boolean role = Role.ADMIN.equals(user.getRole()) ;
+            Key key = datastore.allocateId(keyFactory.newKey());
+            Entity account = Entity.newBuilder(key)
+                    .set("mail", user.getMail())
+                    .set("role", role)
+                    .set("created", Timestamp.now())
+                    .build();
+            datastore.put(account);
+            return true ;
+        }
+
+        return false ;
+
+
     }
 
     public static boolean addPtitu(Ptitu ptitu) {
-     //todo check if addPtitu exists
-
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Ptitu");
 
-        boolean contentType = ContentType.IMAGE.equals(ptitu.getContentType()) ;
-        Key key = datastore.allocateId(keyFactory.newKey());
-        Entity account = Entity.newBuilder(key)
-                .set("url", StringValue.newBuilder(ptitu.getUrl()).setExcludeFromIndexes(true).build())
-                .set("longUrl", StringValue.newBuilder(ptitu.getLongUrl()).setExcludeFromIndexes(true).build())
-                .set("ownerMail", StringValue.newBuilder(ptitu.getOwnerMail()).setExcludeFromIndexes(true).build())
-                .set("numberAccesses", LongValue.newBuilder(ptitu.getNumberAccesses()).setExcludeFromIndexes(true).build())
-                .set("contentType", BooleanValue.newBuilder(contentType).setExcludeFromIndexes(true).build())
-                .set("created", Timestamp.now())
+        Query<Entity> query = Query.newEntityQueryBuilder()
+                .setKind("Ptitu")
+                .setFilter(StructuredQuery.PropertyFilter.eq("longUrl", ptitu.getLongUrl()))
                 .build();
-        datastore.put(account);
-        return true ;
+
+        QueryResults<Entity> ptitus = datastore.run(query);
+
+
+       if(ptitus != null) {
+
+           boolean contentType = ContentType.IMAGE.equals(ptitu.getContentType()) ;
+           Key key = datastore.allocateId(keyFactory.newKey());
+           Entity pt = Entity.newBuilder(key)
+                   .set("url", ptitu.getUrl())
+                   .set("longUrl", ptitu.getLongUrl())
+                   .set("ownerMail", ptitu.getOwnerMail())
+                   .set("numberAccesses", ptitu.getNumberAccesses())
+                   .set("contentType", contentType)
+                   .set("created", Timestamp.now())
+                   .build();
+           datastore.put(pt);
+           return true ;
+       }
+
+           return false ;
+
+
 
     }
 
