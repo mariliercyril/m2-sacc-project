@@ -106,7 +106,7 @@ public class Storage {
         String longUrl="";
         while (ptituFind.hasNext()) {
 
-            longUrl = ptituFind.next().toString();
+            longUrl = ptituFind.next().getString("longUrl");
         }
 
         return longUrl ;
