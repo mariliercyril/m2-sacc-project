@@ -113,6 +113,16 @@
       <version>1.10.19</version>
       <scope>test</scope>
     </dependency>
+
+<!--DataStore-->
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-datastore</artifactId>
+      <version>1.83.0</version>
+    </dependency>
+
+
+
   </dependencies>
 
   <build>

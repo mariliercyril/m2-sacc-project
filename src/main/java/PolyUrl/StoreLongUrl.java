@@ -18,7 +18,7 @@ public class StoreLongUrl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //code
-        String purl = CreatePUrl.idToShortURL(Storage.getPtitu().size());
+        String purl = CreatePUrl.idToShortURL(Storage.getPtituSize());
         String longurl = request.getParameter("longurl");
         String mail = request.getParameter("mail");
         Storage.addPtitu(new Ptitu(purl,longurl,mail,ContentType.URL));

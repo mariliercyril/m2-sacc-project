@@ -1,18 +1,18 @@
 package PolyUrl;
 
+import com.google.cloud.Timestamp;
+import com.google.cloud.datastore.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
     private static List<User> accounts = new ArrayList<>();
-    private static List<Ptitu> ptituList = new ArrayList<>();
+    private static int ptitUSize = 0;
 
-    public static List<Ptitu> getPtitu() {
-        return ptituList;
-    }
 
-    public static void setPtitu(List<Ptitu> ptitu) {
-        Storage.ptituList = ptitu;
+    public static int getPtituSize() {
+        return ptitUSize;
     }
 
     public static List<User> getAccounts() {
@@ -23,22 +23,75 @@ public class Storage {
         Storage.accounts = accounts;
     }
 
+
+
     public static boolean addAccount(User user) {
-        if (!accounts.contains(user)) {
-            accounts.add(user);
-            return true;
-        } else {
-            return false;
+
+         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Account");
+
+        
+        Query<Entity> query = Query.newEntityQueryBuilder()
+                .setKind("Account")
+                .setFilter(StructuredQuery.PropertyFilter.eq("mail", user.getMail()))
+                .build();
+
+        QueryResults<Entity> accounts = datastore.run(query);
+
+        if(accounts !=null) {
+
+            boolean role = Role.ADMIN.equals(user.getRole()) ;
+            Key key = datastore.allocateId(keyFactory.newKey());
+            Entity account = Entity.newBuilder(key)
+                    .set("mail", user.getMail())
+                    .set("role", role)
+                    .set("created", Timestamp.now())
+                    .build();
+            datastore.put(account);
+            return true ;
         }
+
+        return false ;
+
+
     }
 
     public static boolean addPtitu(Ptitu ptitu) {
-        if (!ptituList.contains(ptitu)) {
-            ptituList.add(ptitu);
-            return true;
-        } else {
-            return false;
-        }
+        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        KeyFactory keyFactory = datastore.newKeyFactory().setKind("PtitUStorage");
+
+        Query<Entity> query = Query.newEntityQueryBuilder()
+                .setKind("PtitUStorage")
+                .setFilter(StructuredQuery.PropertyFilter.eq("longUrl", ptitu.getLongUrl()))
+                .build();
+
+        QueryResults<Entity> ptitus = datastore.run(query);
+
+
+       if(ptitus != null) {
+
+           ptitUSize++;
+
+           boolean contentType = ContentType.IMAGE.equals(ptitu.getContentType()) ;
+           Key key = datastore.allocateId(keyFactory.newKey());
+           Entity pt = Entity.newBuilder(key)
+                   .set("url", ptitu.getUrl())
+                   .set("longUrl", ptitu.getLongUrl())
+                   .set("ownerMail", ptitu.getOwnerMail())
+                   .set("isImage", contentType)
+                   .set("created", Timestamp.now())
+                   .build();
+           datastore.put(pt);
+           return true ;
+       }
+
+           return false ;
+
+    }
+
+    public static String getLongUrlFromPtitU(String ptitu){
+
+        return "long url correspondante";
     }
 
     public static void printAccounts() {
@@ -50,6 +103,6 @@ public class Storage {
 
     public static void clean() {
         accounts = new ArrayList<>();
-        ptituList = new ArrayList<>();
+        ptitUSize = 0;
     }
 }

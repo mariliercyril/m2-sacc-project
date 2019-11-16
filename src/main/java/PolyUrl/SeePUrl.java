@@ -21,9 +21,10 @@ public class SeePUrl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         //code
-        int id = CreatePUrl.shortURLtoID(request.getParameter("u"));
-        String url = Storage.getPtitu().get(id).getLongUrl();
-        response.sendRedirect(url);
+        //int id = CreatePUrl.shortURLtoID(request.getParameter("u"));
+        String url = Storage.getLongUrlFromPtitU(request.getParameter("u"));
+        response.getWriter().println(url);
+        //response.sendRedirect(url);
     }
 }
 
