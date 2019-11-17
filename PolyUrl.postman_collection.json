@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "a8fb0823-0d38-43c6-a226-96409bab1652",
+		"name": "PolyUrl",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://polyurl.appspot.com/account?name=Baptiste&mail=mail@gmail.com&admin=true",
+					"protocol": "http",
+					"host": [
+						"polyurl",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"account"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Baptiste"
+						},
+						{
+							"key": "mail",
+							"value": "mail@gmail.com"
+						},
+						{
+							"key": "admin",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Baptiste/Pictures/test - Copie.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://polyurl.appspot.com/storeimage?mail=baptiste.frere@etu.unice.fr",
+					"protocol": "http",
+					"host": [
+						"polyurl",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"storeimage"
+					],
+					"query": [
+						{
+							"key": "mail",
+							"value": "baptiste.frere@etu.unice.fr"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Long Url",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://polyurl.appspot.com/storelongurl?mail=baptiste.frere@etu.unice.fr&longurl=https://www.google.be",
+					"protocol": "http",
+					"host": [
+						"polyurl",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"storelongurl"
+					],
+					"query": [
+						{
+							"key": "mail",
+							"value": "baptiste.frere@etu.unice.fr"
+						},
+						{
+							"key": "longurl",
+							"value": "https://www.google.be"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "See p'tit url",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://polyurl.appspot.com/?u=$$$$",
+					"protocol": "http",
+					"host": [
+						"polyurl",
+						"appspot",
+						"com"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "u",
+							"value": "$$$$"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear Data",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://polyurl.appspot.com/cleardata",
+					"protocol": "http",
+					"host": [
+						"polyurl",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"cleardata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "See Logs for a ptitu",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://polyurl.appspot.com/logsDetails?mail=benazetlaurent@gmail.com&ptitu=$$$$",
+					"protocol": "http",
+					"host": [
+						"polyurl",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"logsDetails"
+					],
+					"query": [
+						{
+							"key": "mail",
+							"value": "benazetlaurent@gmail.com"
+						},
+						{
+							"key": "ptitu",
+							"value": "$$$$"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "See all logs for a mail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://polyurl.appspot.com/listLogs?mail=benazetlaurent@gmail.com",
+					"protocol": "http",
+					"host": [
+						"polyurl",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"listLogs"
+					],
+					"query": [
+						{
+							"key": "mail",
+							"value": "benazetlaurent@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "97bd9dbd-0924-4ede-a64d-88a293d4a38d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "96e6e4a1-fb97-41b1-a12d-f13e1af1d114",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
