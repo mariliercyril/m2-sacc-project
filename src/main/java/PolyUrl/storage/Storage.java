@@ -1,7 +1,7 @@
 package PolyUrl.storage;
 
-import PolyUrl.account.User;
 import PolyUrl.account.Role;
+import PolyUrl.account.User;
 import PolyUrl.ptitu.Ptitu;
 import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.*;
@@ -9,7 +9,7 @@ import com.google.cloud.datastore.*;
 public class Storage {
     private static int ptitUSize = 0;
 
-    public static int getPtituSize() {
+    static int getPtituSize() {
         return ptitUSize;
     }
 
@@ -38,13 +38,10 @@ public class Storage {
             datastore.put(account);
             return true;
         }
-
         return false;
-
-
     }
 
-    public static boolean addPtitu(Ptitu ptitu) {
+    static void addPtitu(Ptitu ptitu) {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("PtitUStorage");
 
@@ -71,10 +68,7 @@ public class Storage {
                     .set("created", Timestamp.now())
                     .build();
             datastore.put(pt);
-            return true;
         }
-
-        return false;
 
     }
 

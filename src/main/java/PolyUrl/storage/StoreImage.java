@@ -2,9 +2,9 @@ package PolyUrl.storage;
 
 import PolyUrl.ptitu.CreatePUrl;
 import PolyUrl.ptitu.Ptitu;
-import com.google.cloud.storage.*;
+import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
-import com.google.gson.Gson;
+import com.google.cloud.storage.StorageOptions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,11 +19,7 @@ import java.io.InputStream;
 @MultipartConfig
 @WebServlet(name = "StoreImage", value = "/storeimage")
 public class StoreImage extends HttpServlet {
-
-    Gson gson = new Gson();
-
     //add an image
-
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Storage storage = StorageOptions.getDefaultInstance().getService();
@@ -44,8 +40,8 @@ public class StoreImage extends HttpServlet {
 
         String purl = CreatePUrl.idToShortURL(PolyUrl.storage.Storage.getPtituSize());
         String mail = request.getParameter("mail");
-        PolyUrl.storage.Storage.addPtitu(new Ptitu(purl,longurl,mail, ContentType.IMAGE));
-        response.getWriter().println("http://polyurl.appspot.com/?u="+purl);
+        PolyUrl.storage.Storage.addPtitu(new Ptitu(purl, longurl, mail, ContentType.IMAGE));
+        response.getWriter().println("http://polyurl.appspot.com/?u=" + purl);
     }
 }
 
