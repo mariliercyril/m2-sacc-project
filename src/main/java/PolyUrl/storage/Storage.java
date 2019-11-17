@@ -13,6 +13,10 @@ public class Storage {
         return ptitUSize;
     }
 
+    public static void resetSize(){
+        ptitUSize = 0;
+    }
+
     public static boolean addAccount(User user) {
 
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
