@@ -16,3 +16,5 @@
 
 
 Pour la liste des logs, le contenu est renvoyé sous la forme {contenu1 : nbAcces, contenu2 : nbAcces}.
+
+*Afin de télécharger les logs, il faut cliquer sur le lien envoyé par mail, puis copier-coller le lien présent dans le champ "mediaLink". Nous n'avons pas réussi à utiliser la méthode getMediaLink() pour effectuer ceci, car le lien renvoyé par cette méthode ne fonctionne pas.*

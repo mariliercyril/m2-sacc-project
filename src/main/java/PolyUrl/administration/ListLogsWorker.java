@@ -5,6 +5,7 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.cloud.datastore.*;
 import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -24,7 +25,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 @WebServlet(name = "ListLogsWorker", value = "/listLogsWorker")
 public class ListLogsWorker extends HttpServlet {
-    private String filterLogs(Blob blob, String mail, boolean isAdmin, ByteArrayOutputStream os, com.google.cloud.storage.Storage storage) throws IOException {
+    private String filterLogs(Blob blob, String mail, boolean isAdmin, ByteArrayOutputStream os, Storage storage) throws IOException {
         String fileContent = new String(blob.getContent(), UTF_8);
         String[] fileLines = fileContent.split("\n");
 
@@ -65,7 +66,7 @@ public class ListLogsWorker extends HttpServlet {
         channel.write(ByteBuffer.wrap(object.toString().getBytes(UTF_8)));
         channel.close();
 
-        return blobLogs.getMediaLink();
+        return blobLogs.getSelfLink();
     }
 
     @Override

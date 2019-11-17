@@ -56,7 +56,7 @@ public class LogsDetailsWorker extends HttpServlet {
         channel.write(ByteBuffer.wrap(result.toString().getBytes(UTF_8)));
         channel.close();
 
-        return blobLogs.getMediaLink();
+        return blobLogs.getSelfLink();
     }
 
     @Override
