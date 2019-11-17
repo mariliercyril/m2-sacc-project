@@ -13,3 +13,6 @@
 - La redirection vers un contenu fonctionne.
 - L'envoi des mails fonctionne.
 - La création de compte fonctionne.
+
+
+Pour la liste des logs, le contenu est renvoyé sous la forme {contenu1 : nbAcces, contenu2 : nbAcces}.

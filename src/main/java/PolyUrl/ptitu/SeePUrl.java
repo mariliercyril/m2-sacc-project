@@ -45,7 +45,6 @@ public class SeePUrl extends HttpServlet {
                             .newBuilder("poly_url_logs", "globalLogs.txt")
                             .build(),
                     os.toByteArray());
-
         }
 
         //add consultation logs
@@ -53,12 +52,14 @@ public class SeePUrl extends HttpServlet {
             Entity ptitU = ptitus.next();
             String url = ptitU.getString("url");
             ContentType contentType = ptitU.getBoolean("isImage") ? ContentType.IMAGE : ContentType.URL;
+            String content = ptitU.getString("longUrl");
             String ownerMail = ptitU.getString("ownerMail");
             String IP = request.getRemoteAddr();
             Timestamp consultationDate = Timestamp.now();
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("url", url);
             jsonObject.addProperty("contentType", contentType.toString());
+            jsonObject.addProperty("content", content);
             jsonObject.addProperty("ownerMail", ownerMail);
             jsonObject.addProperty("IP", IP);
             jsonObject.addProperty("Date", consultationDate.toString());
