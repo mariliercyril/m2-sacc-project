@@ -64,8 +64,6 @@ public class ListLogsWorker extends HttpServlet {
 
         String mail = request.getParameter("mail");
 
-        System.out.println("Get list of logs for mail : " + mail);
-
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
         Query<Entity> query = Query.newEntityQueryBuilder()

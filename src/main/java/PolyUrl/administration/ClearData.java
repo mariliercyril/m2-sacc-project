@@ -1,14 +1,9 @@
 package PolyUrl.administration;
 
-
 import com.google.api.gax.paging.Page;
-import com.google.appengine.api.datastore.QueryResultIterator;
-import com.google.appengine.api.taskqueue.Queue;
-import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.cloud.datastore.*;
-import com.google.cloud.storage.*;
 import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,14 +22,14 @@ public class ClearData extends HttpServlet {
         //clear buckets of images
         Bucket b = storage.get("poly_url_images");
         Page<Blob> blobs = b.list();
-        for(Blob blob : blobs.iterateAll()){
-            storage.delete(BlobId.of("poly_url_images",blob.getName()));
+        for (Blob blob : blobs.iterateAll()) {
+            storage.delete(BlobId.of("poly_url_images", blob.getName()));
         }
         //clear buckets of logs
         b = storage.get("poly_url_logs");
         blobs = b.list();
-        for(Blob blob : blobs.iterateAll()){
-            storage.delete(BlobId.of("poly_url_logs",blob.getName()));
+        for (Blob blob : blobs.iterateAll()) {
+            storage.delete(BlobId.of("poly_url_logs", blob.getName()));
         }
         //reset size of ptitu (to start at $$$$ again)
         PolyUrl.storage.Storage.resetSize();
@@ -44,11 +39,11 @@ public class ClearData extends HttpServlet {
                 .setKind("PtitUStorage")
                 .build();
         QueryResults<Entity> ptitus = datastore.run(query);
-        List<Key> keys = new ArrayList<Key>();
+        List<Key> keys = new ArrayList<>();
         while (ptitus.hasNext()) {
             keys.add(ptitus.next().getKey());
         }
-        for (Key key:keys) {
+        for (Key key : keys) {
             datastore.delete(key);
         }
         //clear datastore of account
@@ -56,11 +51,11 @@ public class ClearData extends HttpServlet {
                 .setKind("Account")
                 .build();
         QueryResults<Entity> accounts = datastore.run(query);
-        keys = new ArrayList<Key>();
+        keys = new ArrayList<>();
         while (accounts.hasNext()) {
             keys.add(accounts.next().getKey());
         }
-        for (Key key:keys) {
+        for (Key key : keys) {
             datastore.delete(key);
         }
         resp.getWriter().println("Cleared all data.");

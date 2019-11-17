@@ -15,7 +15,7 @@ import java.util.Properties;
 
 @WebServlet(name = "MailWorker", value = "/mailworker")
 public class MailWorker extends HttpServlet {
-    public void sendSimpleMail(String senderMail, String recipientMail, String subject, String message) {
+    private void sendSimpleMail(String senderMail, String recipientMail, String subject, String message) {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 

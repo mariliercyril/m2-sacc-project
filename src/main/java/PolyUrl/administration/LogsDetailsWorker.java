@@ -67,8 +67,6 @@ public class LogsDetailsWorker extends HttpServlet {
         String mail = request.getParameter("mail");
         String ptitu = request.getParameter("ptitu");
 
-        System.out.println("Get list of logs for mail : " + mail);
-
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
         Query<Entity> query = Query.newEntityQueryBuilder()
@@ -91,8 +89,8 @@ public class LogsDetailsWorker extends HttpServlet {
 
             String link = filterLogs(blob, mail, isAdmin, ptitu, os, storage);
 
-            String subject = "Logs for all your ptit-u";
-            String message = "Hello " + account.getString("name") + ", you requested the logs for all your ptit-u. It is downloadable at the following link : " + link;
+            String subject = "Logs for your requested ptit-u";
+            String message = "Hello " + account.getString("name") + ", you requested the logs for the ptit-u " + ptitu + ". It is downloadable at the following link : " + link;
 
             Queue queue = QueueFactory.getQueue("queue-mail");
             queue.add(TaskOptions.Builder.withUrl("/mailworker")

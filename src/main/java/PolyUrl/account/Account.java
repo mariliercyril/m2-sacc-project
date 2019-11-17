@@ -8,13 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @WebServlet(name = "Account", value = "/account")
 public class Account extends HttpServlet {
     //create a new account
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         String mail = request.getParameter("mail");
         String admin = request.getParameter("admin");
@@ -25,7 +24,5 @@ public class Account extends HttpServlet {
                 .param("mail", mail)
                 .param("admin", admin));
     }
-
-
 }
 

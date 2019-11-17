@@ -7,7 +7,7 @@ public class User {
     private Role role;
     private String name;
 
-    public User(String mail, Role role, String name) {
+    User(String mail, Role role, String name) {
         this.mail = mail;
         this.role = role;
         this.name = name;
@@ -23,10 +23,6 @@ public class User {
 
     public Role getRole() {
         return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     @Override

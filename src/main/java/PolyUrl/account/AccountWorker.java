@@ -15,7 +15,6 @@ import java.io.IOException;
 public class AccountWorker extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         String name = request.getParameter("name");
         String mail = request.getParameter("mail");
         String admin = request.getParameter("admin");
