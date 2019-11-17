@@ -1,8 +1,6 @@
 package PolyUrl.account;
 
-import PolyUrl.Role;
-import PolyUrl.Storage;
-import PolyUrl.User;
+import PolyUrl.storage.Storage;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;

@@ -1,4 +1,4 @@
-package PolyUrl;
+package PolyUrl.storage;
 
 public enum ContentType {
     URL,

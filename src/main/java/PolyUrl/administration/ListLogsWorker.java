@@ -32,7 +32,7 @@ public class ListLogsWorker extends HttpServlet {
             Entity account = accounts.next();
             boolean isAdmin = account.getBoolean("role");
             String subject = "Logs for all your ptit-u";
-            String message = "Hello " + account.getString("name") + ", you requested the logs for your ptit-u.";
+            String message = "Hello " + account.getString("name") + ", you requested the logs for all your ptit-u.";
 
             Queue queue = QueueFactory.getQueue("queue-mail");
             queue.add(TaskOptions.Builder.withUrl("/mailworker")

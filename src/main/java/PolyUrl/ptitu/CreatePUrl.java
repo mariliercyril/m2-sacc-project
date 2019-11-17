@@ -1,4 +1,4 @@
-package PolyUrl;
+package PolyUrl.ptitu;
 
 import java.math.BigInteger;
 
@@ -6,7 +6,7 @@ public class CreatePUrl {
 
     public CreatePUrl(){}
 
-    static String idToShortURL(int n)
+    public static String idToShortURL(int n)
     {
         // Map to store 62 possible characters
         char[] map = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();

@@ -1,5 +1,7 @@
-package PolyUrl;
+package PolyUrl.storage;
 
+import PolyUrl.ptitu.CreatePUrl;
+import PolyUrl.ptitu.Ptitu;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -21,7 +23,7 @@ public class StoreLongUrl extends HttpServlet {
         String purl = CreatePUrl.idToShortURL(Storage.getPtituSize());
         String longurl = request.getParameter("longurl");
         String mail = request.getParameter("mail");
-        Storage.addPtitu(new Ptitu(purl,longurl,mail,ContentType.URL));
+        Storage.addPtitu(new Ptitu(purl,longurl,mail, ContentType.URL));
         response.getWriter().println("http://polyurl.appspot.com/?u="+purl);
     }
 }

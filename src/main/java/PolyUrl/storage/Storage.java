@@ -1,5 +1,8 @@
-package PolyUrl;
+package PolyUrl.storage;
 
+import PolyUrl.account.User;
+import PolyUrl.account.Role;
+import PolyUrl.ptitu.Ptitu;
 import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.*;
 

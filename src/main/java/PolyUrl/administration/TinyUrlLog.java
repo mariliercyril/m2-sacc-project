@@ -1,4 +1,7 @@
-package PolyUrl;
+package PolyUrl.administration;
+
+import PolyUrl.account.User;
+import PolyUrl.ptitu.Ptitu;
 
 import java.util.Date;
 

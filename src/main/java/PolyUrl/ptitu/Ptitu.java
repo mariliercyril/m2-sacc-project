@@ -1,4 +1,6 @@
-package PolyUrl;
+package PolyUrl.ptitu;
+
+import PolyUrl.storage.ContentType;
 
 import java.util.Objects;
 

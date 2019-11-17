@@ -1,9 +1,7 @@
-package PolyUrl;
+package PolyUrl.storage;
 
-import com.google.appengine.repackaged.org.joda.time.DateTime;
-import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
-import com.google.appengine.repackaged.org.joda.time.format.DateTimeFormat;
-import com.google.appengine.repackaged.org.joda.time.format.DateTimeFormatter;
+import PolyUrl.ptitu.CreatePUrl;
+import PolyUrl.ptitu.Ptitu;
 import com.google.cloud.storage.*;
 import com.google.cloud.storage.Storage;
 import com.google.gson.Gson;
@@ -14,14 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 @MultipartConfig
 @WebServlet(name = "StoreImage", value = "/storeimage")
@@ -64,10 +57,10 @@ public class StoreImage extends HttpServlet {
                         .build(),
                 os.toByteArray());
 
-        String purl = CreatePUrl.idToShortURL(PolyUrl.Storage.getPtituSize());
+        String purl = CreatePUrl.idToShortURL(PolyUrl.storage.Storage.getPtituSize());
         String longurl = request.getParameter(blobInfo.getMediaLink());
         String mail = request.getParameter("mail");
-        PolyUrl.Storage.addPtitu(new Ptitu(purl,longurl,mail,ContentType.IMAGE));
+        PolyUrl.storage.Storage.addPtitu(new Ptitu(purl,longurl,mail, ContentType.IMAGE));
         response.getWriter().println("http://polyurl.appspot.com/?u="+purl);
     }
 }
