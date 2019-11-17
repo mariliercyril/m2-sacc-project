@@ -28,7 +28,7 @@ public class AccountWorker extends HttpServlet {
 
         System.out.println("name :" + name + " mail: " + mail + "admin: " + admin);
 
-        if (Storage.addAccount(new User(mail, role))) {
+        if (Storage.addAccount(new User(mail, role, name))) {
             Queue queue = QueueFactory.getQueue("queue-mail");
             queue.add(TaskOptions.Builder.withUrl("/mailworker")
                     .param("senderMail", "mail@polyurl.appspotmail.com")

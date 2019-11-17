@@ -5,10 +5,12 @@ import java.util.Objects;
 public class User {
     private String mail;
     private Role role;
+    private String name;
 
-    public User(String mail, Role role) {
+    public User(String mail, Role role, String name) {
         this.mail = mail;
         this.role = role;
+        this.name = name;
     }
 
     public String getMail() {
@@ -38,5 +40,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(mail, role);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

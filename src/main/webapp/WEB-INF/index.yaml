@@ -10,3 +10,12 @@ indexes:
         direction: desc
       - name: ownerMail
         direction: desc
+
+  - kind : Account
+    properties:
+      - name: mail
+        direction: desc
+      - name: role
+        direction: desc
+      - name: created
+        direction: desc
