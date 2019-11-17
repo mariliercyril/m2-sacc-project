@@ -6,11 +6,13 @@ import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.*;
 import com.google.gson.JsonObject;
 
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 
 @WebServlet(name = "SeePUrl", value = "/")
 public class SeePUrl extends HttpServlet {
@@ -49,7 +51,32 @@ public class SeePUrl extends HttpServlet {
         //int id = CreatePUrl.shortURLtoID(request.getParameter("u"));
         String[] r = Storage.getLongUrlFromPtitU(ptitu);
         //0=url    1=isImage(String)  2=ownerMail
-        response.sendRedirect(r[0]);
+        if(r[1].equals("false")){
+            response.sendRedirect(r[0]);
+        } else {
+            //afficher l'image
+            String mime = "image";
+            if (mime == null) {
+                //redirect when image not here
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().println("404 not found");
+                return;
+            }
+
+            response.setContentType(mime);
+
+            InputStream in = new URL(r[0]).openStream();
+            OutputStream out = response.getOutputStream();
+
+            // Copy the contents of the file to the output stream
+            byte[] buf = new byte[1024];
+            int count = 0;
+            while ((count = in.read(buf)) >= 0) {
+                out.write(buf, 0, count);
+            }
+            out.close();
+            in.close();
+        }
     }
 }
 

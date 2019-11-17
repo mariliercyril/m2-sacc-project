@@ -23,23 +23,6 @@ public class StoreImage extends HttpServlet {
     Gson gson = new Gson();
 
     //add an image
-    /*@Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            CloudStorageHelper cloudStorageHelper = new CloudStorageHelper();
-            String x = cloudStorageHelper.getImageUrl(request,response,"poly_url_images");
-            //String x = cloudStorageHelper.uploadFile(request.getPart("file"),"poly_url_images");
-            response.getWriter().println(x);
-        }catch (Exception e){
-            response.getWriter().println("Erreur : "+e.getMessage());
-        }
-
-        //CloudStorageHelper cloudStorageHelper = new CloudStorageHelper();
-        //String resp = cloudStorageHelper.uploadFile(request.getPart(),"poly_url_images");
-
-        // should store image then ask CreatePUrl class for the purl
-        //response.getWriter().println(resp);
-    }*/
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,8 +40,9 @@ public class StoreImage extends HttpServlet {
                         .build(),
                 os.toByteArray());
 
+        String longurl = blobInfo.getMediaLink();
+
         String purl = CreatePUrl.idToShortURL(PolyUrl.storage.Storage.getPtituSize());
-        String longurl = request.getParameter(blobInfo.getMediaLink());
         String mail = request.getParameter("mail");
         PolyUrl.storage.Storage.addPtitu(new Ptitu(purl,longurl,mail, ContentType.IMAGE));
         response.getWriter().println("http://polyurl.appspot.com/?u="+purl);
