@@ -22,7 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 @WebServlet(name = "ListLogsWorker", value = "/listLogsWorker")
 public class ListLogsWorker extends HttpServlet {
-    private void filterLogs(Blob blob, String mail, boolean isAdmin, ByteArrayOutputStream os, com.google.cloud.storage.Storage storage) throws IOException, IOException {
+    private String filterLogs(Blob blob, String mail, boolean isAdmin, ByteArrayOutputStream os, com.google.cloud.storage.Storage storage) throws IOException {
         String fileContent = new String(blob.getContent(), UTF_8);
         String[] fileLines = fileContent.split("\n");
 
@@ -53,6 +53,8 @@ public class ListLogsWorker extends HttpServlet {
 
         channel.write(ByteBuffer.wrap(result.toString().getBytes(UTF_8)));
         channel.close();
+
+        return blobLogs.getMediaLink();
     }
 
     @Override
@@ -84,10 +86,10 @@ public class ListLogsWorker extends HttpServlet {
             Entity account = accounts.next();
             boolean isAdmin = account.getBoolean("role");
 
-            filterLogs(blob, mail, isAdmin, os, storage);
+            String link = filterLogs(blob, mail, isAdmin, os, storage);
 
             String subject = "Logs for all your ptit-u";
-            String message = "Hello " + account.getString("name") + ", you requested the logs for all your ptit-u.";
+            String message = "Hello " + account.getString("name") + ", you requested the logs for all your ptit-u. It is downloadable at the following link : " + link;
 
             Queue queue = QueueFactory.getQueue("queue-mail");
             queue.add(TaskOptions.Builder.withUrl("/mailworker")
